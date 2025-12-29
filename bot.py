@@ -36,7 +36,7 @@ async def cmd_start(message: Message):
     
     await message.answer(
         f"Hello, {user.first_name}! 👋\n\n"
-        "Welcome to the bot! Use /help to see available commands."
+        "Welcome to the bot! Use /help to see available commands. \n\n(latest commit: initial .github/workflows/deploy.yml setup)"
     )
 
 
