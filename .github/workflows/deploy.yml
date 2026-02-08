@@ -18,9 +18,9 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT}}
           script: |
-            cd /var/www/Supreme
+            cd /var/www/AIAgent
             git pull origin main
-            docker stop supreme-bot || true
-            docker rm supreme-bot || true
-            docker build -t supreme-bot .
-            docker run -d --name supreme-bot --env-file .env supreme-bot
+            docker stop samsonite-bot || true
+            docker rm samsonite-bot || true
+            docker build -t samsonite-bot .
+            docker run -d --name samsonite-bot --env-file .env samsonite-bot
