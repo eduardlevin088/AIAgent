@@ -1,16 +1,33 @@
 import os
+from pathlib import Path
 from dotenv import load_dotenv
+
+
+BASE_DIR = Path(__file__).resolve().parent
 
 load_dotenv()
 
+
 BOT_TOKEN = os.getenv("BOT_TOKEN")
-ADMIN_IDS = [int(admin_id) for admin_id in os.getenv("ADMIN_IDS", "").split(",") if admin_id.strip()]
+SUPERADMIN_ID = int(os.getenv("SUPERADMIN_ID"))
 
-if not BOT_TOKEN:
-    raise ValueError("BOT_TOKEN is not set in environment variables")
+DB_NAME = os.getenv("DB_NAME")
 
-LANGFLOW_API = os.getenv("LANGFLOW_API")
-LANGFLOW_WEBHOOK = os.getenv("LANGFLOW_WEBHOOK")
+GPT_KEY = os.getenv("GPT_KEY")
+GPT_MODEL = os.getenv("GPT_MODEL")
 
-# Database configuration
-DB_PATH = os.getenv("DB_PATH", "bot.db")
+KZ_UTC = int(os.getenv("KZ_UTC"))
+
+_admin_ids_raw = (os.getenv("ADMIN_IDS") or "").strip()
+ADMIN_IDS = [
+    int(x.strip())
+    for x in _admin_ids_raw.split(",")
+    if x.strip().isdigit()
+]
+
+
+STATIC_DIR = BASE_DIR / "static"
+AGENT_PROMPT_MAIN_PATH = STATIC_DIR / "agent_prompt_main.txt"
+
+DB_DIR = BASE_DIR / "data"
+DB_PATH = DB_DIR / DB_NAME

@@ -18,9 +18,10 @@ jobs:
           key: ${{ secrets.SERVER_SSH_KEY }}
           port: ${{ secrets.SERVER_PORT}}
           script: |
+            mkdir -p /var/www/AIAgent
             cd /var/www/AIAgent
             git pull origin main
             docker stop samsonite-bot || true
             docker rm samsonite-bot || true
             docker build -t samsonite-bot .
-            docker run -d --name samsonite-bot --env-file .env samsonite-bot
+            docker run -d -v $(pwd)/data:/data --name samsonite-bot --env-file .env samsonite-bot samsonite-agent
