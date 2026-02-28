@@ -18,16 +18,8 @@ COPY requirements.txt .
 RUN cat requirements.txt
 
 # Install Python dependencies
-RUN pip install --no-cache-dir --upgrade pip setuptools wheel
-
-# Install requests explicitly first to verify it works
-RUN pip install --no-cache-dir requests==2.31.0
-
-# Install remaining dependencies
-RUN pip install --no-cache-dir -r requirements.txt
-
-# Verify requests is installed and importable
-RUN python -c "import requests; print(f'✓ requests {requests.__version__} installed successfully')"
+RUN pip install --no-cache-dir --upgrade pip setuptools wheel \
+    && pip install --no-cache-dir -r requirements.txt
 
 # Copy application code
 COPY . .
